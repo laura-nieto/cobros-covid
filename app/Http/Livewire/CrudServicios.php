@@ -38,7 +38,6 @@ class CrudServicios extends Component
     public function save()
     {
         $this->validate();
-        dd($this->sucursal_id);
         Servicio::updateOrCreate(['id'=>$this->id_servicio],
         [
             'nombre'=>$this->nombre,

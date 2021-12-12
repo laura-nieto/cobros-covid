@@ -25,7 +25,7 @@ class CreateSucursalsTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->float('precio');
-            $table->foreignId('sucursal_id')->nullable()->constrained('sucursales')->onDelete('cascade');
+            $table->foreignId('sucursal_id')->constrained('sucursales')->onDelete('cascade');
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });
