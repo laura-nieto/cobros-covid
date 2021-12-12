@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest2-layout>
     <div class="shadow overflow-hidden sm:rounded-md">
         <div class="px-4 py-5 bg-white sm:p-6">
             <svg viewBox="0 0 24 24" class="text-green-600 w-16 h-16 mx-auto my-6">
@@ -18,4 +18,4 @@
             </div>
         </div>
     </div>
-</x-guest-layout>
+</x-guest2-layout>

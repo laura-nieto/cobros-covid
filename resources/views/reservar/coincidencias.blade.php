@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest2-layout>
 
     <form action="{{url('busqueda')}}" method="get">
         <div class="shadow overflow-hidden sm:rounded-md">
@@ -66,4 +66,4 @@
         </script>
         <script src="{{ asset('js/select-servicio.js') }}"></script>
     @endsection
-</x-guest-layout>
+</x-guest2-layout>

@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest2-layout>
     <form action="" method="post">
         @csrf
         <div class="shadow overflow-hidden sm:rounded-md">
@@ -63,4 +63,4 @@
             </div>
         </div>
     </form>
-</x-guest-layout>
+</x-guest2-layout>

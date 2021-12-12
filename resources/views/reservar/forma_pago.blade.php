@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest2-layout>
     <div class="shadow overflow-hidden sm:rounded-md">
         <div class="px-4 py-5 bg-white sm:p-6">
             <div class="mb-6">
@@ -17,4 +17,4 @@
             </div>
         </div>
     </div>
-</x-guest-layout>
+</x-guest2-layout>
