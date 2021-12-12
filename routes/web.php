@@ -41,10 +41,6 @@ Route::get('paypal/checkout',[PaypalController::class,'getExpressCheckout'])->na
 Route::get('paypal/checkout-success/{idpago}',[PaypalController::class,'getExpressCheckoutSuccess'])->name('paypal.success');
 Route::get('paypal/checkout-cancel/{idpago}',[PaypalController::class,'cancelPage'])->name('paypal.cancel');
 
-Route::get('asd',function(){
-    return view('reservar.pago_exitoso');
-});
-
 Route::middleware(['auth:sanctum','verified'])->group(function(){
     // SETTING PAGE
     Route::get('/themes',CrudSettings::class)->name('admin.settings')->middleware('permission:admin.settings');

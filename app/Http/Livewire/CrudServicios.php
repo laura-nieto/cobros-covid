@@ -45,11 +45,11 @@ class CrudServicios extends Component
             'sucursal_id'=>$this->sucursal_id,
         ]);
         $this->cerrarModal();
-        $this->limpiarCampos();
     }
     public function editar($id)
     {
         $servicio = Servicio::findOrFail($id);
+        $this->sucursales = Sucursal::all();
         $this->id_servicio = $servicio->id;
         $this->nombre = $servicio->nombre;
         $this->precio = $servicio->precio;
