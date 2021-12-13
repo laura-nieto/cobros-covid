@@ -14,4 +14,9 @@ class Sucursal extends Model
     protected $fillable = [
         'nombre','direccion'
     ];
+
+    public function servicios()
+    {
+        return $this->hasMany(Servicio::class);
+    }
 }

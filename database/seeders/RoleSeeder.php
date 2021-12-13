@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\GeneralSetting;
+use App\Models\Servicio;
+use App\Models\Sucursal;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +20,17 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
+        Sucursal::create([
+            'nombre'=>'Sucursal 1',
+            'direccion'=>'Direccion 120',
+        ]);
+        Servicio::create(
+        [
+            'nombre'=>'Servicio 1',
+            'precio'=>150,
+            'sucursal_id'=>1,
+        ]);
+
         GeneralSetting::create([]);
 
         $role1 = Role::create(['name'=>'Administrador']);

@@ -42,7 +42,7 @@ class CrudServicios extends Component
         [
             'nombre'=>$this->nombre,
             'precio'=>$this->precio,
-            'sucursal_id'=>intval($this->sucursal_id),
+            'sucursal_id'=>$this->sucursal_id,
         ]);
         $this->cerrarModal();
     }
