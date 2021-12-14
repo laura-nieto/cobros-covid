@@ -32,13 +32,24 @@
                     </div>
                     <div class="flex flex-col">
                         <label class="mb-2 mt-3 font-semibold text-gray-700">Sucursales</label>
-                        <select name="rol" id="rol" wire:model="sucursal_id"
+                        @foreach ($sucursales as $sucursal)
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="{{$sucursal->id}}" name="sucursal_id" type="radio" value="{{$sucursal->id}}" wire:model="sucursal_id"
+                                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="{{$sucursal->id}}" class="font-medium text-gray-700">{{$sucursal->nombre}}</label>
+                                </div>
+                            </div>
+                        @endforeach
+                        {{-- <select name="sucursal_id" id="sucursal_id" wire:model="sucursal_id"
                             class="w-full bg-white border border-gray-200 rounded shadow-sm appearance-none">
                             <option>Seleccione una sucursal</option>
                             @foreach ($sucursales as $sucursal)
                                 <option value="{{$sucursal->id}}">{{$sucursal->nombre}}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
                         @error('sucursal_id')
                             <span class="error text-red-500 mt-2">{{$message}}</span>
                         @enderror
