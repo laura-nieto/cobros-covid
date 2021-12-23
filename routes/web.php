@@ -5,10 +5,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SucursalController;
+use App\Http\Livewire\Calendario;
 use App\Http\Livewire\CrudServicios;
 use App\Http\Livewire\CrudSucursales;
 use App\Http\Livewire\CrudUser;
 use App\Http\Livewire\Logo\CrudSettings;
+use App\Http\Livewire\PacienteVista;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,5 +55,8 @@ Route::middleware(['auth:sanctum','verified'])->group(function(){
     Route::get('/sucursales',CrudSucursales::class)->name('admin.sucursales')->middleware('permission:admin.sucursales.index');
     //SERVICIOS
     Route::get('/servicios',CrudServicios::class)->name('admin.servicios')->middleware('permission:admin.servicios.index');
-
+    //PACIENTE
+    Route::get('/paciente/{id}',PacienteVista::class)->name('admin.paciente.index'); //AGREGAR MIDDLEWARE
+    //CITAS
+    Route::get('/calendario',Calendario::class)->name('admin.calendario.index'); //AGREGAR MIDDLEWARE
 });

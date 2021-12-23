@@ -7,9 +7,12 @@ use App\Models\Cita;
 use App\Models\Pago;
 use App\Models\Sucursal;
 use App\Services\PaypalService;
+use BaconQrCode\Encoder\QrCode as EncoderQrCode;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use PDF as PDF;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PaypalController extends Controller
 {
@@ -46,7 +49,7 @@ class PaypalController extends Controller
     }
 
 
-    public function getExpressCheckoutSuccess($payment_id){
+    public function getExpressCheckoutSuccess(Request $request,$payment_id){
 
         $payment = Pago::find($payment_id);
         $response = $this->paypalService->captureOrder($payment->paypal_orderid);
@@ -54,9 +57,25 @@ class PaypalController extends Controller
         if ($response->result->status == 'COMPLETED') {
             $payment->is_paid = 1;
             $payment->save();
+            
+            //PDF
+            $image = base64_encode(file_get_contents(public_path('/img/logo/Logo1.png'))); //LOGO
+            $url = $request->root() . '/paciente/' . Cita::find($payment->cita_id)->paciente->id;
+            $qr = base64_encode(QrCode::format('svg')->size(200)->generate($url));
+            $data = [
+                'dia' => Carbon::parse(session('dia'))->format('d-m-Y'),
+                'hora' => Carbon::parse(session('hora'))->format('H:i'),
+                'sucursal' => Sucursal::find(session('sucursal_id')),
+                'imagen' => $image,
+                'qr' => $qr,
+            ];
+            $pdf = PDF::loadView('pdf.ticket', $data);
+            
             // MANDAR EMAIL
             $correo = new EnvioCita( session('paciente.nombre'), session('paciente.apellido'),Carbon::parse(session('dia'))->format('d-m-Y'),Carbon::parse(session('hora'))->format('H:i'), Sucursal::find(session('sucursal_id'))->nombre  );
+            $correo->attachData($pdf->output(),'reserva.pdf',['mime' => 'application/pdf']);
             Mail::to(session('paciente.email'))->send($correo);
+
             return view('reservar.pago_exitoso');
         }else{
             $cita = Cita::find($payment->cita_id);

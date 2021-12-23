@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Cita extends Model
 {
     use HasFactory;
+
+    public function paciente()
+    {
+        return $this->belongsTo(Paciente::class,'paciente_id');
+    }
 }

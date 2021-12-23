@@ -16,6 +16,8 @@
         @livewire('logo.colors')
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <!-- ICON -->
+        <link rel="shortcut icon" href="{{asset('img/logo/SAIH-logo.png')}}"/>
     </head>
     <body class="antialiased" style="background-color:#B7E3F5;">
         <div class="min-h-screen">
@@ -24,7 +26,7 @@
                     <div class="md:flex items-center justify-between py-2 px-8 md:px-12">
                         <div class="flex justify-between items-center">
                         <div class="text-2xl font-bold text-gray-800 md:text-3xl">
-                                <a href="/">Covid - 19</a>
+                                <a href="/"><img src="{{asset('/img/logo/SAIH-logo.png')}}" alt="" class="w-14"></a>
                         </div>
                             <div class="md:hidden">
                                 <button type="button" class="block text-gray-800 hover:text-gray-700 focus:text-gray-700 focus:outline-none">

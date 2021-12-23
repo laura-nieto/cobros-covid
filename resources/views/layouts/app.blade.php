@@ -54,7 +54,7 @@
             <div
                 class="sidebar hidden bg-white w-full h-full lg:h-auto lg:w-72 space-y-6 bg-nav color-nav absolute lg:static z-10">
                 <div class="h-32 p-10 border-b border-gray-300 flex flex-col items-center justify-center"
-                    style="background-image:url({{ asset('/img/fondos/header-purple.jpg') }});background-size:cover;">
+                    style="background-image:url({{ asset('/img/fondos/header-blue.jpg') }});background-size:cover;">
 
                     <h4 class="text-white text-xl font-semibold">
                         {{ Auth::user()->nombre . " " . Auth::user()->apellido }}
@@ -76,7 +76,7 @@
                     <div class="mb-6">
                         <ul>
                             <li
-                                class="flex py-2.5 px-2 mb-2 transition duration-200 rounded hover:bg-blue-600 hover:text-white {{ (request()->is('dashboard')) ? 'bg-blue-600 text-white' : '' }}">
+                                class="flex items-center py-2.5 px-2 mb-2 transition duration-200 rounded hover:bg-blue-600 hover:text-white {{ (request()->is('dashboard')) ? 'bg-blue-600 text-white' : '' }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path
@@ -89,7 +89,7 @@
 
                             @can('admin.settings')
                                 <li
-                                    class="flex py-2.5 px-2 mb-2 transition duration-200 rounded hover:bg-blue-600 hover:text-white {{ (request()->is('themes')) ? 'bg-blue-600 text-white' : '' }}">
+                                    class="flex items-center py-2.5 px-2 mb-2 transition duration-200 rounded hover:bg-blue-600 hover:text-white {{ (request()->is('themes')) ? 'bg-blue-600 text-white' : '' }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round">
@@ -115,6 +115,16 @@
                                     </a>
                                 </li>
                             @endcan
+
+                                <li
+                                    class="flex items-center py-2.5 px-2 mb-2 transition duration-200 rounded hover:bg-blue-600 hover:text-white {{ (request()->is('calendario')) ? 'bg-blue-600 text-white' : '' }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <a href="{{ route('admin.calendario.index') }}" class="ml-2 w-full">
+                                        Calendario
+                                    </a>
+                                </li>
                         </ul>
                     </div>
                     <div>

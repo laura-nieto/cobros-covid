@@ -21,6 +21,7 @@ class CreatePacientesTable extends Migration
             $table->string('sexo');
             $table->string('telefono');
             $table->string('email');
+            $table->boolean('estado')->default(0);
             $table->timestamps();
         });
         Schema::create('citas', function (Blueprint $table) {

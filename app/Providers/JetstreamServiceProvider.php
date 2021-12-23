@@ -3,7 +3,12 @@
 namespace App\Providers;
 
 use App\Actions\Jetstream\DeleteUser;
+use App\Models\Sucursal;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Fortify;
 use Laravel\Jetstream\Jetstream;
 
 class JetstreamServiceProvider extends ServiceProvider
@@ -28,6 +33,30 @@ class JetstreamServiceProvider extends ServiceProvider
         $this->configurePermissions();
 
         Jetstream::deleteUsersUsing(DeleteUser::class);
+
+        // LOGIN
+        Fortify::loginView(function () {
+            $sucursales = Sucursal::all();
+            return view('auth.login',compact('sucursales'));
+        });
+        Fortify::authenticateUsing(function (Request $request) {
+            $user = User::where('email', $request->email)->first();
+            
+            if($user && !$user->hasRole(1)){
+                if (!$user->empresa->sucursales->contains($request->sucursal_id)) {
+                    return false;
+                }
+            }
+            if ($user &&
+                Hash::check($request->password, $user->password)) {
+                if (!$user->hasRole(1)){
+                    $request->session()->put('sucursal',$request->sucursal_id);
+                }else{
+                    $request->session()->put('sucursal',1);
+                }
+                return $user;
+            }
+        });
     }
 
     /**

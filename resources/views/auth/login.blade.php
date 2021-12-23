@@ -25,6 +25,15 @@
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
+            <div class="mt-4">
+                <x-jet-label for="sucursal" value="{{ __('Sucursal') }}" />
+                <select name="sucursal_id" id="sucursal" class="w-full mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" required>
+                    @foreach ($sucursales as $sucursal)
+                        <option value="{{$sucursal->id}}">{{$sucursal->nombre}}</option>
+                    @endforeach
+                </select>
+            </div>
+            
             <div class="block mt-4">
                 <label for="remember_me" class="flex items-center">
                     <x-jet-checkbox id="remember_me" name="remember" />
