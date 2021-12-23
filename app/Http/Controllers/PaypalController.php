@@ -66,7 +66,7 @@ class PaypalController extends Controller
                 'dia' => Carbon::parse(session('dia'))->format('d-m-Y'),
                 'hora' => Carbon::parse(session('hora'))->format('H:i'),
                 'sucursal' => Sucursal::find(session('sucursal_id')),
-                'imagen' => $image,
+                // 'imagen' => $image,
                 'qr' => $qr,
             ];
             $pdf = PDF::loadView('pdf.ticket', $data);
