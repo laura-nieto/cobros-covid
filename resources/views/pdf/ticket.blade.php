@@ -25,7 +25,7 @@
                 <tbody class="w-100">
                     <tr class="w-100">
                         <td style="width:30%">
-                            {{-- <img src="data:image/png;base64,{{$imagen}}" alt="" width="100" style="margin:10px 20px"> --}}
+                            <img src="{{public_path('/img/logo/SAIH-logo.png')}}" alt="" width="100" style="margin:10px 20px">
                         </td>
                         <td align="right" style="width:70%">
                             <h2>Empresa</h2>
