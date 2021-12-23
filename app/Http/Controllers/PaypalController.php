@@ -59,7 +59,7 @@ class PaypalController extends Controller
             $payment->save();
             
             //PDF
-            $image = base64_encode(file_get_contents(public_path('/img/logo/SAIH-logo.png'))); //LOGO
+            //$image = base64_encode(file_get_contents(public_path('/img/logo/SAIH-logo.png'))); //LOGO
             $url = $request->root() . '/paciente/' . Cita::find($payment->cita_id)->paciente->id;
             $qr = base64_encode(QrCode::format('svg')->size(200)->generate($url));
             $data = [
