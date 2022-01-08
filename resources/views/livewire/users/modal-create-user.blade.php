@@ -66,6 +66,18 @@
                             
                         </select>
                     </div>
+                    <div class="flex flex-col">
+                        <label class="mb-2 mt-3 font-semibold text-gray-700">Sucursales</label>
+                        @foreach ($sucursales as $sucursal)
+                            <label class="inline-flex items-center mt-3">
+                                <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" wire:model="sucursales_id" value="{{$sucursal->id}}" name='{{$sucursal->id}}'>
+                                <span class="ml-2 text-gray-700" for="{{$sucursal->id}}">{{$sucursal->nombre}}</span>
+                            </label>
+                        @endforeach
+                        @error('sucursales_id')
+                            <span class="error text-red-500 mt-2">{{$message}}</span>
+                        @enderror
+                    </div> 
                 </form>
                 <div class="flex flex-row items-center justify-end p-5 mt-3">
                     <button

@@ -43,12 +43,17 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'name'=>'required'
+        ];
         $message = [
             'required'=>'El campo es requerido'
         ];
-        $request->validate(['name'=>'required'],$message);
         
-        $role=Role::create($request->all());
+        $request->validate($rules,$message);        
+        $role=Role::create([
+            'name' => $request->name
+        ]);
         $role->permissions()->sync($request->permiso);
 
         return redirect()->route('admin.roles.index')->with('success','Rol creado con éxito');

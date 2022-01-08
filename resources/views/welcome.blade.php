@@ -20,7 +20,7 @@
         <link rel="shortcut icon" href="{{asset('img/logo/SAIH-logo.png')}}"/>
     </head>
     <body class="antialiased" style="background-color:#B7E3F5;">
-        <div class="min-h-screen">
+        <div class="min-h-screen flex flex-col">
             <head>
                 <nav class="bg-white shadow-lg">
                     <div class="md:flex items-center justify-between py-2 px-8 md:px-12">
@@ -110,7 +110,7 @@
                     </form>
                 </div>
             </main>
-            <footer class="border-t bg-white text-gray-700 font-light text-base px-3 py-2 w-full absolute bottom-0">
+            <footer class="border-t bg-white text-gray-700 font-light text-base px-3 py-2 w-full mt-auto">
                 <div class="flex flex-col-reverse sm:flex-row justify-between">
                     <p class="leading-8 tracking-wide">
                         &copy; Copyright 2022. Todos los derechos reservados.

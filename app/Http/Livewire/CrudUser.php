@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Sucursal;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -13,21 +14,18 @@ class CrudUser extends Component
     public $modal = false;
     //public $modalDelete = false;
     public $search;
-    public $roles,$role_id;
+    public $sucurales,$sucursales_id,$roles,$role_id;
 
-    protected $rules = [
-        'nombre' => 'required|min:2',
-        'apellido' => 'required|min:2',
-        'email' => 'required|email|unique:users',
-        'password' => 'required|min:6',
-    ];
     protected $messages = [
         'required' => 'El campo es requerido.',
         'email' => 'La dirección de Email debe tener un formato adecuado.',
         'unique' => 'Ya existe un registro con ese Email.',
         'min' => 'El campo debe tener al menos :min caracteres',
     ];
-
+    public function mount()
+    {
+        $this->sucursales = Sucursal::all();
+    }
     public function render()
     {
         $users = User::where('nombre','like','%'.$this->search.'%')
@@ -50,11 +48,22 @@ class CrudUser extends Component
         $this->nombre = $user->nombre;
         $this->apellido = $user->apellido;
         $this->email = $user->email;
+        $this->sucursales_id = $user->sucursales->pluck('id');
+        $this->role_id = $user->roles->first()->id;
         $this->abrirModal();
     }
     public function save()
     {
-        $this->validate();
+        $rules = [
+            'nombre' => 'required|min:2',
+            'apellido' => 'required|min:2',
+             //'email' => 'required|email|unique:users,email', //PARA POSTGRES
+            'email' => 'required|email|unique:users,email,'.$this->id_user,
+            'password' => 'required|min:6',
+            'role_id' => 'required',
+            'sucursales_id' => 'required',
+        ];
+        $this->validate($rules);
         $user = User::updateOrCreate(['id'=>$this->id_user],
         [
             'nombre'=>$this->nombre,
@@ -63,6 +72,7 @@ class CrudUser extends Component
             'password'=>Hash::make($this->password),
         ]);
         $user->roles()->sync([$this->role_id]);
+        $user->sucursales()->sync($this->sucursales_id);
         $this->cerrarModal();
         $this->limpiarCampos();
     }
@@ -84,9 +94,11 @@ class CrudUser extends Component
     }
     public function limpiarCampos()
     {
-        $this->nombre = '';
-        $this->apellido = '';
-        $this->email = '';
-        $this->password = '';
+        $this->id_user = NULL;
+        $this->role_id = NULL;
+        $this->nombre = NULL;
+        $this->apellido = NULL;
+        $this->email = NULL;
+        $this->password = NULL;
     }
 }

@@ -67,6 +67,6 @@
                     </tbody>
                 </table>
             </div>
-        </x-sesccion-white>
+        </x-sesccion>
     </div>
 </div>

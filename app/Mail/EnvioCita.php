@@ -10,6 +10,8 @@ use Illuminate\Queue\SerializesModels;
 class EnvioCita extends Mailable
 {
     use Queueable, SerializesModels;
+    
+    public $subject = 'Envío de Cita para prueba COVID';
 
     public $nombre,$apellido,$dia,$hora,$lugar,$svg;
     /**

@@ -63,4 +63,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    
+    public function sucursales()
+    {
+        return $this->belongsToMany(Sucursal::class,'sucursales_usuarios','usuario_id','sucursal_id');
+    }
 }

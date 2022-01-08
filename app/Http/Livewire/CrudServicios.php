@@ -39,7 +39,6 @@ class CrudServicios extends Component
     {
         $this->validate();
         
-        
         Servicio::updateOrCreate(['id'=>$this->id_servicio],
         [
             'nombre'=>$this->nombre,
@@ -75,9 +74,9 @@ class CrudServicios extends Component
     }
     public function limpiarCampos()
     {
-        $this->nombre = '';
-        $this->precio = '';
-        $this->sucursal_id = '';
+        $this->nombre = NULL;
+        $this->precio = NULL;
+        $this->sucursal_id = NULL;
         $this->id_servicio = NULL;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cita;
+use App\Models\Cortesia;
 use App\Models\Paciente;
 use App\Models\Servicio;
 use App\Models\Sucursal;
@@ -99,7 +100,16 @@ class CitaController extends Controller
 
     public function forma_pago()
     {
-        // dd(session('paciente.nombre'));
+        $dia = Carbon::parse(session('dia'))->format('d-m-Y');
+        $hora = Carbon::parse(session('hora'))->format('H:i');
+        $sucursal = Sucursal::find(session('sucursal_id'));
+        $servicio = Servicio::find(session('servicio_id'));
+        
+        return view('reservar.forma_pago',compact('dia','hora','sucursal','servicio'));
+    }
+
+    public function pagoCortesia()
+    {
         $paciente = new Paciente;
         $paciente->nombre = session('paciente.nombre');
         $paciente->apellido = session('paciente.apellido');
@@ -107,6 +117,7 @@ class CitaController extends Controller
         $paciente->sexo = session('paciente.sexo');
         $paciente->telefono = session('paciente.telefono');
         $paciente->email = session('paciente.email');
+        $paciente->estado_id = 5;
         $paciente->save();
 
         $cita = new Cita;
@@ -117,14 +128,10 @@ class CitaController extends Controller
         $cita->paciente_id = $paciente->id;
         $cita->save();
 
-        session()->put('cita',$cita->id);
-        //session()->put('paciente',$paciente->id);
-
-        $dia = Carbon::parse(session('dia'))->format('d-m-Y');
-        $hora = Carbon::parse(session('hora'))->format('H:i');
-        $sucursal = Sucursal::find(session('sucursal_id'));
-        $servicio = Servicio::find(session('servicio_id'));
-
-        return view('reservar.forma_pago',compact('dia','hora','sucursal','servicio'));
+        $cortesia = new Cortesia;
+        $cortesia->cita_id = $cita->id;
+        $cortesia->sucursal_id = session('sucursal_id');
+        $cortesia->save();
+        return view('reservar.cortesia');
     }
 }

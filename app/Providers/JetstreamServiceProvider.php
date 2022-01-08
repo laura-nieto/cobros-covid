@@ -42,18 +42,14 @@ class JetstreamServiceProvider extends ServiceProvider
         Fortify::authenticateUsing(function (Request $request) {
             $user = User::where('email', $request->email)->first();
             
-            if($user && !$user->hasRole(1)){
-                if (!$user->empresa->sucursales->contains($request->sucursal_id)) {
+            if($user){
+                if (!$user->sucursales->contains($request->sucursal_id)) {
                     return false;
                 }
             }
             if ($user &&
                 Hash::check($request->password, $user->password)) {
-                if (!$user->hasRole(1)){
-                    $request->session()->put('sucursal',$request->sucursal_id);
-                }else{
-                    $request->session()->put('sucursal',1);
-                }
+                $request->session()->put('sucursal',$request->sucursal_id);
                 return $user;
             }
         });

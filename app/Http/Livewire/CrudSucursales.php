@@ -67,6 +67,6 @@ class CrudSucursales extends Component
     }
     public function limpiarCampos()
     {
-        $this->nombre = '';
+        $this->nombre = NULL;
     }
 }

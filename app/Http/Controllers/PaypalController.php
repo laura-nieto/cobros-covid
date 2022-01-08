@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\EnvioCita;
 use App\Models\Cita;
+use App\Models\Paciente;
 use App\Models\Pago;
 use App\Models\Sucursal;
 use App\Services\PaypalService;
@@ -24,8 +25,28 @@ class PaypalController extends Controller
 
     public function getExpressCheckout()
     {
+        $paciente = new Paciente;
+        $paciente->nombre = session('paciente.nombre');
+        $paciente->apellido = session('paciente.apellido');
+        $paciente->fecha_nacimiento = session('paciente.fecha_nacimiento');
+        $paciente->sexo = session('paciente.sexo');
+        $paciente->telefono = session('paciente.telefono');
+        $paciente->email = session('paciente.email');
+        $paciente->estado_id = 1;
+        $paciente->save();
+
+        $cita = new Cita;
+        $cita->fecha = session('dia');
+        $cita->hora = session('hora');
+        $cita->servicio_id = session('servicio_id');
+        $cita->sucursal_id = session('sucursal_id');
+        $cita->paciente_id = $paciente->id;
+        $cita->save();
+
+        session()->put('cita',$cita->id);
+
         $payment = new Pago;
-        $payment->cita_id = session('cita');
+        $payment->cita_id = $cita->id;
         $payment->save();
 
         $response = $this->paypalService->createOrder($payment->id);
@@ -79,6 +100,8 @@ class PaypalController extends Controller
             return view('reservar.pago_exitoso');
         }else{
             $cita = Cita::find($payment->cita_id);
+            $cita->paciente->estado_id = 4;
+            $cita->push();
             $cita->delete();
             return redirect()->route('home')->with('error','Algo ocurrió, vuelva a intentarlo.');
         }
@@ -88,6 +111,8 @@ class PaypalController extends Controller
     {        
         $payment = Pago::find($payment_id);
         $cita = Cita::find($payment->cita_id);
+        $cita->paciente->estado_id = 4;
+        $cita->push();
         $cita->delete();
         return redirect()->route('home')->with('error','El pago ha sido cancelado');
     }

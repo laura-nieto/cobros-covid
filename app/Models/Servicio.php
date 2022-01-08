@@ -10,7 +10,7 @@ class Servicio extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nombre','precio'
+        'nombre','precio','sucursal_id'
     ];
 
     public function sucursal()

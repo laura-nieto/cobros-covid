@@ -13,6 +13,11 @@ class CreatePacientesTable extends Migration
      */
     public function up()
     {
+        Schema::create('estados',function(Blueprint $table){
+            $table->id();
+            $table->string('nombre');
+            $table->timestamps();
+        });
         Schema::create('pacientes', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
@@ -21,7 +26,10 @@ class CreatePacientesTable extends Migration
             $table->string('sexo');
             $table->string('telefono');
             $table->string('email');
-            $table->boolean('estado')->default(0);
+            $table->boolean('resultado')->default(0);
+            $table->boolean('notificado')->default(0);
+            $table->foreignId('estado_id')->constrained('estados')->onDelete('cascade');
+            $table->softDeletes('deleted_at');
             $table->timestamps();
         });
         Schema::create('citas', function (Blueprint $table) {
@@ -31,6 +39,7 @@ class CreatePacientesTable extends Migration
             $table->foreignId('servicio_id')->constrained('servicios')->onDelete('cascade');
             $table->foreignId('sucursal_id')->constrained('sucursales')->onDelete('cascade');
             $table->foreignId('paciente_id')->constrained('pacientes')->onDelete('cascade');
+            $table->softDeletes('deleted_at');
             $table->timestamps();
         });
     }
@@ -44,5 +53,6 @@ class CreatePacientesTable extends Migration
     {
         Schema::dropIfExists('citas');
         Schema::dropIfExists('pacientes');
+        Schema::dropIfExists('estados');
     }
 }

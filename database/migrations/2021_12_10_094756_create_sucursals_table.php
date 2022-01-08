@@ -20,7 +20,12 @@ class CreateSucursalsTable extends Migration
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });
-
+        Schema::create('sucursales_usuarios',function(Blueprint $table){
+            $table->id();
+            $table->foreignId('sucursal_id')->nullable()->constrained('sucursales')->onDelete('cascade');
+            $table->foreignId('usuario_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->timestamps();
+        });
         Schema::create('servicios', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');

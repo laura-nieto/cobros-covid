@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Estado;
 use App\Models\GeneralSetting;
 use App\Models\Servicio;
 use App\Models\Sucursal;
@@ -33,6 +34,13 @@ class RoleSeeder extends Seeder
 
         GeneralSetting::create([]);
 
+        Estado::create(['nombre'=>'Agendado']);
+        Estado::create(['nombre'=>'Pagado']);
+        Estado::create(['nombre'=>'Enviado el resultado']);
+        Estado::create(['nombre'=>'No completó el proceso']);
+        Estado::create(['nombre'=>'Cortesía']);
+        
+        // ROLES
         $role1 = Role::create(['name'=>'Administrador']);
         $admin = User::create([
             'nombre'=>'Admin',
@@ -41,7 +49,9 @@ class RoleSeeder extends Seeder
             'password'=>Hash::make('adminadmin'),
         ]);
         $admin->roles()->sync([1]);
-
+        $admin->sucursales()->sync([1]);
+        
+        //PERMISOS
         // ADMIN SETTING                            
         Permission::create(['name'=>'admin.settings',
                             'description'=>'Modificación de Vistas'])->syncRoles([$role1]);
@@ -88,8 +98,19 @@ class RoleSeeder extends Seeder
         // PERMISO PARA PACIENTES
         Permission::create(['name'=>'admin.paciente.index',
             'description'=>'Ver información del paciente'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.paciente.resultado',
+            'description'=>'Ver resultados de los pacientes'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.paciente.resultado.modificar',
+            'description'=>'Modificar resultado del paciente'])->syncRoles([$role1]);
+        
         // PERMISO PARA CALENDARIO
         Permission::create(['name'=>'admin.calendario.index',
             'description'=>'Ver calendario'])->syncRoles([$role1]);
+        
+        // CORTESIAS
+        Permission::create(['name'=>'admin.cortesia',
+            'description'=>'Aprobar Cortesías'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.cortesia.historial',
+            'description'=>'Ver historial de Cortesías'])->syncRoles([$role1]);
     }
 }
