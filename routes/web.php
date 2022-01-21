@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MercadoPagoController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SucursalController;
@@ -47,6 +48,9 @@ Route::get('paypal/checkout-success/{idpago}',[PaypalController::class,'getExpre
 Route::get('paypal/checkout-cancel/{idpago}',[PaypalController::class,'cancelPage'])->name('paypal.cancel');
 //CORTESIA
 Route::get('pago/cortesia',[CitaController::class,'pagoCortesia'])->name('pago.cortesia');
+//MERCADOPAGO
+Route::get('mercadoPago/success',[MercadoPagoController::class,'success'])->name('mercadoPago.success');
+Route::get('mercadoPago/failure',[MercadoPagoController::class,'fail'])->name('mercadoPago.fail');
 
 Route::middleware(['auth:sanctum','verified'])->group(function(){
     // SETTING PAGE

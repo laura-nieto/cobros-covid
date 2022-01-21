@@ -16,12 +16,13 @@ class CitaController extends Controller
     public function coincidencias(Request $request)
     {
         $rules = [
-            'date' => 'required',
+            'date' => 'required|after:today',
             'sucursal_id' => 'required',
             'servicio_id' => 'required',
         ];
         $message = [
-            'required' => 'Debe completar todos los campos'
+            'required' => 'Debe completar todos los campos',
+            'after' => 'La fecha ingresada debe ser después de hoy'
         ];
         $request->validate($rules,$message);
 

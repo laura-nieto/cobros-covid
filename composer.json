@@ -14,6 +14,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.8",
+        "mercadopago/dx-php": "^2.4",
         "nesbot/carbon": "^2.55",
         "paypal/paypal-checkout-sdk": "1.0.1",
         "simplesoftwareio/simple-qrcode": "^4.2",
