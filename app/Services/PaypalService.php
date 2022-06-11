@@ -40,7 +40,7 @@ class paypalService {
                     "reference_id" => uniqid(),
                     "amount" => [
                         "value" => session('precio'),
-                        "currency_code" => "USD"
+                        "currency_code" => "MXN"
                     ]
                 ]],
             "application_context" => [

@@ -12,6 +12,7 @@
         $item->title = 'Prueba de COVID';
         $item->quantity = 1;
         $item->unit_price = session('precio');
+        $item->currency_id = "MXN";
         // URL
         $preference->back_urls = array(
             "success" => route('mercadoPago.success'),
@@ -48,7 +49,7 @@
     <script>
         // Agrega credenciales de SDK
         const mp = new MercadoPago("{{config('services.mercadopago.key')}}", {
-                locale: 'es-AR'
+                locale: 'es-MX'
         });
 
         // Inicializa el checkout
